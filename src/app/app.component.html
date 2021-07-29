@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="timer">
+    <p>{{ stopWatch | async }}</p>
+  </div>
+  <div class="timer-btn">
+    <input
+      type="button"
+      (mouseup)="startTimer()"
+      [value]="start?.value ? (pause?.value ? 'Resume' : 'Pause') : 'Start'"
+    />
+    <input
+      type="button"
+      [disabled]="start?.value && !pause.value"
+      (mouseup)="reset()"
+      value="Reset"
+    />
+    <input
+      type="button"
+      [disabled]="!start?.value || pause.value"
+      (click)="wait($event)"
+      value="Wait"
+    />
+  </div>
+</div>
