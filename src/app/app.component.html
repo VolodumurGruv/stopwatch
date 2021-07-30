@@ -4,20 +4,19 @@
   </div>
   <div class="timer-btn">
     <input
+      class="start btn"
       type="button"
       (mouseup)="startTimer()"
-      [value]="start?.value ? (pause?.value ? 'Resume' : 'Pause') : 'Start'"
+      [ngClass]="start?.value ? (pause?.value ? 'default' : 'stop') : 'default'"
+      [value]="start?.value ? (pause?.value ? 'Start' : 'Stop') : 'Start'"
     />
+    <input class="reset btn" type="button" (mouseup)="reset()" value="Reset" />
     <input
-      type="button"
-      [disabled]="start?.value && !pause.value"
-      (mouseup)="reset()"
-      value="Reset"
-    />
-    <input
+      class="btn"
+      id="wait"
       type="button"
       [disabled]="!start?.value || pause.value"
-      (click)="wait($event)"
+      (click)="wait()"
       value="Wait"
     />
   </div>

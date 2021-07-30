@@ -7,7 +7,7 @@ export function stopwatch(
   fps: number
 ): Observable<number> {
   return new Observable((obs: Observer<number>) => {
-    let i = 0;
+    let i = 100;
 
     const runTimer = start.pipe(
       switchMap((start) => {

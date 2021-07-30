@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, timer } from 'rxjs';
+import { BehaviorSubject, fromEvent, timer } from 'rxjs';
 import { stopwatch } from './helpers/stopwatch';
 import { msToHms } from './helpers/msToHms';
+import { buffer, debounceTime, filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,7 @@ export class AppComponent implements OnInit {
   startTimer() {
     if (this.start.value) {
       if (this.pause.value) {
+        this.reset();
         this.pause.next(false);
       } else {
         this.pause.next(true);
@@ -41,6 +43,7 @@ export class AppComponent implements OnInit {
         this.pause.next(false);
         this.laps = [];
         this.stopWatch.next('00:00:00');
+        this.startTimer();
       } else {
         this.laps = [...this.laps, this.stopWatch.value];
       }
@@ -52,5 +55,19 @@ export class AppComponent implements OnInit {
     this.pause.complete();
   }
 
-  wait($event) {}
+  wait() {
+    const wait = document.querySelector('#wait');
+
+    const click$ = fromEvent(wait, 'click');
+    console.log('click');
+    const doubleClick$ = click$.pipe(
+      buffer(click$.pipe(debounceTime(300))),
+      map((clicks) => clicks.length),
+      filter((clicksLength) => clicksLength >= 2)
+    );
+
+    doubleClick$.subscribe((_) => {
+      if (this.start.value && !this.pause.value) this.pause.next(true);
+    });
+  }
 }

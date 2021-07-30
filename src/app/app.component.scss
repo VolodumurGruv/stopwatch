@@ -1,4 +1,38 @@
 .container {
-  margin-left: 35%;
+  margin-left: 45%;
   margin-top: 15%;
+}
+
+.timer {
+  text-align: center;
+  width: 50%;
+  font-size: 24px;
+}
+
+.timer-btn input {
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.btn {
+  width: 80px;
+  border-radius: 15px;
+  font-size: 18px;
+  color: #fff;
+}
+
+.start {
+  background-color: rgba(66, 194, 66, 0.699);
+}
+
+.stop {
+  background-color: rgb(197, 54, 54);
+}
+
+#wait {
+  background-color: rgb(224, 224, 15);
+}
+
+.reset {
+  background-color: rgb(231, 129, 12);
 }
